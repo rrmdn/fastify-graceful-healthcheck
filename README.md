@@ -8,22 +8,25 @@ This plugin will not initiate the shutdown process until it lets the load balanc
 
 ```mermaid
 sequenceDiagram
+  actor Traffic
   participant LB as Load Balancer
-  participant App
+  participant Service
   participant OS
 
-  LB->>+App: GET /health
-  App->>-LB: 200 OK
-  Note left of LB: Let the app to join the pool
-  LB->>+App: GET /health
-  App->>-LB: 200 OK
-  OS->>App: SIGTERM
-  LB->>+App: GET /health
-  App->>-LB: 503 Service Unavailable
-  Note left of LB: Kick the app out of the pool
-  LB->>+App: GET /health
-  Note right of App: Run the shutdown procedure
-  App->>-LB: 503 Service Unavailable
+  LB->>+Service: GET /health
+  Service->>-LB: 200 OK
+  Note left of LB: Let the service instance to join the pool
+  Traffic->>+Service: Forward requests
+  LB->>+Service: GET /health
+  Service->>-LB: 200 OK
+  OS->>Service: SIGTERM
+  LB->>+Service: GET /health
+  Service->>-LB: 503 Service Unavailable
+  Service->>-Traffic: Deliver responses
+  Note left of LB: Kick the service instance out of the pool
+  LB->>+Service: GET /health
+  Note right of Service: Run the shutdown procedure
+  Service->>-LB: 503 Service Unavailable
 ```
 
 ## Install

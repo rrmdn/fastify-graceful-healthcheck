@@ -1,0 +1,27 @@
+{
+  "name": "fastify-graceful-healthcheck",
+  "version": "0.1.0",
+  "description": "Graceful healthcheck for fastify",
+  "author": {
+    "name": "Rizki Romadhoni",
+    "email": "rrmdn@pm.me"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest -i",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/death": "^1.1.2",
+    "@types/jest": "^29.0.3",
+    "fastify": "^4.6.0",
+    "jest": "^29.0.3",
+    "ts-jest": "^29.0.1",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "death": "^1.1.0"
+  }
+}
